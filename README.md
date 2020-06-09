@@ -43,7 +43,8 @@
 
 
 ## 클라이언트 c#
-[AesCbc256.cs](C-Sharp/AesCbc256.cs) 파일을 프로젝트에 포함시킨 후 아래와 같이 사용
+[AesCbc256.cs](C-Sharp/AesCbc256.cs) 파일을 프로젝트에 포함시킨 후 아래와 같이 사용.
+유니티의 경우 Mono빌드 대신 IL2CPP빌드로 코드 추적을 어렵게 만들도록 권장.
   ```csharp
   // 암호화할 텍스트
   string textToEncode = "stage=4&victory=0&killedMob=3&rank=F";
@@ -81,4 +82,17 @@
   Debug.Log(">>> 암호화2: " + enc2);
   string dec2 = AesCbc256.Decrypt(enc2, keyBytes, ivBytes);
   Debug.Log("복호화2: " + dec2);
+  ```
+
+### key 관련 변수는 `private` 접근 제한자로 선언하고 `return` 값으로 사용하는 것을 권장
+  ```csharp
+  private byte[] GetKey()
+  {
+    return new byte[] { 0xf2, ... };
+  }
+  
+  private byte[] GetIV()
+  {
+    return new byte[] { 0x8d, ... };
+  }
   ```
