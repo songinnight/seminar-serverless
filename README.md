@@ -86,7 +86,7 @@
   Debug.Log("복호화2: " + dec2);
   ```
 
-### key 관련 변수는 IEnumerator 함수 안에 있으면 디컴파일로 소스가 노출되는 것을 막을 수 있다.
+### key 관련 변수는 IEnumerator 함수 안에 있으면 dotPeek 등의 디컴파일로 소스코드가 곧바로 노출되는 것을 억제할 수 있다.
   ```csharp
   private IEnumerator ObfuscateAgainstDecompiler()
   {
