@@ -4,6 +4,8 @@
 
 ## 서버 node.js
 [aes-cbc-256.js](Node-js/aes-cbc-256.js) 파일을 원하는 위치에 복사한 후 아래와 같이 사용
+> 실 서비스에서는 Key 관련 변수를 서버의 Environment와 같은 곳에 저장할 것을 권장\
+> Github 등에 Key 값이 올라가지 않도록 주의.
   ```javascript
   const aesCbc256 = require("./aes-cbc-256");
 
@@ -44,7 +46,7 @@
 
 ## 클라이언트 c#
 [AesCbc256.cs](C-Sharp/AesCbc256.cs) 파일을 프로젝트에 포함시킨 후 아래와 같이 사용.
-유니티의 경우 Mono빌드 대신 IL2CPP빌드로 코드 추적을 어렵게 만들도록 권장.
+> 유니티의 경우 Mono빌드 대신 IL2CPP빌드를 사용하여 디코딩을 어렵게 만들도록 권장.
   ```csharp
   // 암호화할 텍스트
   string textToEncode = "stage=4&victory=0&killedMob=3&rank=F";
