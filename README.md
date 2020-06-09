@@ -86,15 +86,33 @@
   Debug.Log("복호화2: " + dec2);
   ```
 
-### key 관련 변수는 `private` 접근 제한자로 선언하고 `return` 값으로 사용하는 것을 권장
+### key 관련 변수는 IEnumerator 함수 안에 있으면 디컴파일로 소스가 노출되는 것을 막을 수 있다.
   ```csharp
-  private byte[] GetKey()
+  private IEnumerator ObfuscateAgainstDecompiler()
   {
-    return new byte[] { 0xf2, ... };
-  }
-  
-  private byte[] GetIV()
-  {
-    return new byte[] { 0x8d, ... };
+    // ...
+    // 암호화 된 문자열
+    string encryptedString = "o2Ao5w7YyC5vkJptf7LG0zK8...pPGlgE5GksThlM6i8+Ow";
+
+    // IEnumerator 블록 내에 있는 코드는 리버스 엔지니어링 툴에서 제대로 해석해내지 못한다.
+    byte[] encKey = new byte[] {
+      0x9f, 0x1b, 0x2a, 0x50, 0x05, 0x5f, 0xb4, 0xfe, 0x89, 0x56,
+      0x2a, 0x5f, 0x41, 0xec, 0x98, 0xfe, 0x50, 0xe3, 0xfe, 0x0c,
+      0x48, 0x64, 0xeb, 0x2c, 0x3f, 0x79, 0x41, 0xf6, 0x6d, 0xa3,
+      0x01, 0x0b
+    };
+
+    byte[] encIV = new byte[] {
+      0x21, 0x2c, 0xd2, 0x2e, 0xfa, 0xef, 0x6b, 0xb5, 0x3b, 0xcf,
+      0x43, 0x8a, 0x71, 0x24, 0xbb, 0x0e
+    };
+
+    string decryptedString = AesCbc256.Decrypt(encryptedString, encKey, encIV);
+
+    // 복호화 된 decryptedString를 사용
+    // ...
+
+
+    yield return null;
   }
   ```
